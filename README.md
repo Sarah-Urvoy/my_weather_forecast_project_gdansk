@@ -90,7 +90,8 @@ We simulated a recursive forecast from 1 to 6 hours out, and discovered a fascin
 
 ## 7. Project Repository Structure
 
-📁 Intelligent Measurement Systems /
+'''text
+Intelligent Measurement Systems /
 │
 ├── README.md                        <- Your complete project report & deployment guide
 ├── ims_projects_2026.pdf            <- Official course specification / assignment outline
