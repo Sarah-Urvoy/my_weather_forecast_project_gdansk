@@ -69,8 +69,41 @@ We chose these two specific methods because they are Ensemble Methods—meaning 
 
 Our final numbers showed something very surprising. Usually, we expect AI models to perform best at short distances (1 hour) and get worse at long distances (6 hours). Our project did the exact opposite.
 
-[1-Hour Prediction Error] -> Moving Average (1.89°C) BEATS Machine Learning (2.02°C)
-[6-Hour Prediction Error] -> Machine Learning (1.93°C) BEATS Moving Average (2.01°C)
+### Short-Term Horizon (1-Hour Ahead)
+
+At short range, the statistical baseline slightly outperforms the machine learning models due to high short-term thermal inertia.
+
+| Model / Baseline Name | MAE | RMSE | Summary |
+| --- | --- | --- | --- |
+| **Baseline: 1-Hour Moving Average** | **1.89°C** | **2.24°C** | Best performance; weather changes slowly over 60 mins. |
+| Model: Random Forest | 2.02°C | 2.37°C | Over-smoothes the immediate trend. |
+| Model: Gradient Boosting | 2.09°C | 2.48°C | Slightly overfits on high-frequency sensor noise. |
+
+---
+
+### Medium-Term Horizon (6-Hours Ahead)
+
+At longer range, short-term inertia fades, causing the baseline to break down while the Machine Learning models take over.
+
+| Model / Baseline Name | MAE | RMSE | Summary |
+| --- | --- | --- | --- |
+| Baseline: 6-Hour Moving Average | 2.01°C | 2.33°C | Fails because past averages cannot anticipate daily cycles. |
+| **Model: Random Forest** | **1.93°C** | **2.26°C** | **Stable and accurate tracking.** |
+| Model: Gradient Boosting | 1.97°C | 2.30°C | Highly competitive trend prediction. |
+
+---
+
+## 7. Key Observations: Why the Results are Inverted
+
+Normally, models degrade over longer time horizons. Our pipeline does the opposite for two reasons:
+
+### 1. Short-Term Noise (1-Hour)
+
+Weather exhibits high immediate persistence. The 1-Hour Moving Average works well because it filters raw sensor fluctuations. The complex ML models try to find non-linear patterns in what is actually random sensor noise, which increases their short-term error.
+
+### 2. Macro Cycles (6-Hours)
+
+Over 6 hours, recent temperature values lose predictive power. The Random Forest model wins here because it bypasses the short-term noise and utilizes the engineered cyclical time features (`hour_sin` / `hour_cos`) and barometric pressure to accurately track the day's cooling and heating cycles.
 
 ![Simulation](chart_1_forecast_comparison.png)
 
