@@ -88,6 +88,22 @@ Why did this happen?
 
 We simulated a recursive forecast from 1 to 6 hours out, and discovered a fascinating paradox: the error at 1 Hour is actually higher than the error at 5 or 6 Hours. This confirms our core scientific finding: short-term predictions are heavily disrupted by unpredictable micro-fluctuations. But as we look further ahead, the model's accuracy gets stabilized by the 24-hour solar cycle we engineered into it. It is easier for the AI to predict the overall daily curve of the sun than it is to guess a tiny sensor jump 10 minutes from now.
 
+## 7. Project Repository Structure
+
+📁 Intelligent Measurement Systems /
+│
+├── README.md                        <- Your complete project report & deployment guide
+├── ims_projects_2026.pdf            <- Official course specification / assignment outline
+│
+├── collect.py                       <- Step 1: Ingestion engine (API to AWS S3 Bronze)
+├── process.py                       <- Step 2: Refinement engine (Direct in-memory feature engineering)
+├── train_model.py                   <- Step 3: Optimization engine (Model serialization to S3 Gold)
+├── data_fetch.py                    <- Utility script to retrieve clean historical states
+├── results.py                       <- Step 4: Analytical pipeline & evaluation simulator
+│
+├── chart_1_forecast_comparison.png <- Live timeline performance tracking vs baselines
+├── chart_2_parameter_influence.png <- Feature importance matrix across both time horizons
+└── chart_3_recursive_error_growth.png <- Horizon error propagation profile curve
 
 ## Conclusion:
 
